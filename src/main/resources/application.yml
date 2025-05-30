@@ -1,0 +1,23 @@
+# mysql 相关配置
+database:
+    driver: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://113.45.174.45:3306/guigu-auth?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+
+
+# 需要生成的表名，默认为 * 代表所有表，多个表名以 , 分割
+# TODO 在 YML 中, * 是一个锚点引用符，所以需要用引号包裹表明此处是个普通字符串
+tableNames: "*"
+
+# 作者
+author: zhanggongming
+
+# 输出路径
+rootPath: D:\\
+
+# 自定义前缀   eg: 我想生成的文件在 com.zhang.system，此处就填写 system。默认为 *，代表直接生成在 packageName 目录下
+prefix: "*"
+
+# 生成的代码 package 包名
+packageName: com.zhang
