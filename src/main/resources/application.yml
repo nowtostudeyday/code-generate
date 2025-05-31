@@ -13,9 +13,6 @@ tableNames: "*"
 # 作者
 author: zhanggongming
 
-# 输出路径
-rootPath: D:\\
-
 # 自定义前缀   eg: 我想生成的文件在 com.zhang.system，此处就填写 system。默认为 *，代表直接生成在 packageName 目录下
 prefix: "*"
 

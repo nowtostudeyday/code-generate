@@ -57,7 +57,7 @@ public class GlobalConfig {
         if (CONFIGURATION == null) {
             synchronized (GlobalConfig.class) {
                 if (CONFIGURATION == null) {
-                    CONFIGURATION = new Configuration(Configuration.VERSION_2_3_23);
+                    CONFIGURATION = new Configuration(Configuration.VERSION_2_3_34);
 
                     CONFIGURATION.setTemplateLoader(new ClassTemplateLoader(GlobalConfig.class, "/templates"));
                     CONFIGURATION.setDefaultEncoding("UTF-8");

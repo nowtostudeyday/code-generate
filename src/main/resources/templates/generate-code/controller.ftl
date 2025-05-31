@@ -1,5 +1,3 @@
-prefix值: ${prefix?json_string}
-prefix值: ${packageName?json_string}
 <#if prefix == "*">
 package ${packageName}.web.${classInfo.modelName};
 

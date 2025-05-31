@@ -27,11 +27,6 @@ public class ConfigInfo {
     private String author;
 
     /**
-     * 代码输出目录
-     */
-    private String rootPath;
-
-    /**
      * 项目根路径
      */
     private String projectPath;

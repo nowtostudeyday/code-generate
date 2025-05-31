@@ -51,7 +51,7 @@ public interface BaseGenCode {
     void genEntity(ClassInfo classInfo);
 
     /**
-     * 生成配置文件(包括pom.xml,application.yml,application.properties)
+     * 创建转换类
      */
-    void genConfig();
+    void genTransfer(ClassInfo classInfo);
 }

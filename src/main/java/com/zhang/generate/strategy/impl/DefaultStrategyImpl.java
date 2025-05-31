@@ -70,12 +70,13 @@ public class DefaultStrategyImpl implements GenerateStrategy, BaseGenCode {
         for (ClassInfo classInfo : classInfos) {
             // 生成代码
             genController(classInfo);
+            genSceneService(classInfo);
+            genDomainService(classInfo);
+            genTransfer(classInfo);
+            genResourceService(classInfo);
+            genMapper(classInfo);
+            genEntity(classInfo);
         }
-    }
-
-    @Override
-    public void generateConfig() {
-
     }
 
     @Override
@@ -85,41 +86,44 @@ public class DefaultStrategyImpl implements GenerateStrategy, BaseGenCode {
 
     @Override
     public void genController(ClassInfo classInfo) {
-        this.genCode(classInfo, "generate-code/controller.ftl", "web", "Controller.java");
+        this.genCode(classInfo, "generate-code/controller.ftl", "web", null, "Controller.java");
     }
 
     @Override
     public void genSceneService(ClassInfo classInfo) {
-
+        this.genCode(classInfo, "generate-code/scene.ftl", "core", "scene", "SceneService.java");
+        this.genCode(classInfo, "generate-code/sceneImpl.ftl", "core", "scene", "SceneServiceImpl.java");
     }
 
     @Override
     public void genDomainService(ClassInfo classInfo) {
+        this.genCode(classInfo, "generate-code/domain.ftl", "core", "domain", "DomainService.java");
+        this.genCode(classInfo, "generate-code/domainImpl.ftl", "core", "domain", "DomainServiceImpl.java");
+    }
 
+    @Override
+    public void genTransfer(ClassInfo classInfo) {
+        this.genCode(classInfo, "generate-code/transfer.ftl", "core", "transfer", "Transfer.java");
     }
 
     @Override
     public void genResourceService(ClassInfo classInfo) {
-
-    }
-
-    @Override
-    public void genMapper(ClassInfo classInfo) {
-
-    }
-
-    @Override
-    public void genMapperXml(ClassInfo classInfo) {
-
+        this.genCode(classInfo, "generate-code/resource.ftl", "base", "repository", "ResourceService.java");
     }
 
     @Override
     public void genEntity(ClassInfo classInfo) {
-
+        this.genCode(classInfo, "generate-code/entity.ftl", "base", "entity", ".java");
     }
 
     @Override
-    public void genConfig() {
+    public void genMapper(ClassInfo classInfo) {
+        this.genCode(classInfo, "generate-code/mapper.ftl", "base", "mapper", "Mapper.java");
+    }
+
+    // TODO 暂时不实现
+    @Override
+    public void genMapperXml(ClassInfo classInfo) {
 
     }
 
@@ -128,18 +132,20 @@ public class DefaultStrategyImpl implements GenerateStrategy, BaseGenCode {
      *
      * @param classInfo     类信息
      * @param templatePath  模板地址
+     * @param moduleName    模块名
      * @param parentPackage 父包名
      * @param classSuffix   文件后缀
      */
-    private void genCode(ClassInfo classInfo, String templatePath, String parentPackage, String classSuffix) {
+    private void genCode(ClassInfo classInfo, String templatePath, String moduleName, String parentPackage, String classSuffix) {
         // 1.转换格式
         String urlPath = configInfo.getPackageName().replace(".", File.separator);
 
         // 2.生成文件路径
         // D:\download\project\tools\code-generate  \src\main\java  \com\zhang  \base (\basic)\addressController\AddressController.java
         String filePath = configInfo.getProjectPath() + PathConstant.SRC_MAIN_JAVA + urlPath + File.separator
-                + parentPackage.replace(".", File.separator) + File.separator
-                + classInfo.getModelName() + File.separator + classInfo.getClassName() + classSuffix;
+                + moduleName.replace(".", File.separator) + File.separator
+                + (configInfo.getPrefix().equalsIgnoreCase("*") ? classInfo.getModelName() + (parentPackage != null ? File.separator + parentPackage : "") + File.separator + classInfo.getClassName() + classSuffix :
+                configInfo.getPrefix() + File.separator + classInfo.getModelName() + (parentPackage != null ? File.separator + parentPackage : "") + File.separator + classInfo.getClassName() + classSuffix);
         log.info("controller filePath : [{}]", filePath);
 
         // 3.生成
@@ -164,10 +170,11 @@ public class DefaultStrategyImpl implements GenerateStrategy, BaseGenCode {
 
             Map<String, Object> params = new HashMap<>(16);
             params.put("classInfo", classInfo);
-            params.put("authorName", configInfo.getAuthor());
+            params.put("author", configInfo.getAuthor());
             params.put("packageName", configInfo.getPackageName());
+            params.put("prefix", configInfo.getPrefix());
 //            params.put("projectName", configInfo.get());
-            params.put("genConfig", configInfo);
+//            params.put("configInfo", configInfo);
             template.process(params, writer);
             writer.flush();
             writer.close();

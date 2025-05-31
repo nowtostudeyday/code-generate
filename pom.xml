@@ -73,13 +73,6 @@
             <version>2.3.34</version>
         </dependency>
 
-        <!-- 基于反射的class 扫描包 -->
-        <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>0.9.11</version>
-        </dependency>
-
         <!-- 解析 yml 配置文件 -->
         <dependency>
             <groupId>org.yaml</groupId>

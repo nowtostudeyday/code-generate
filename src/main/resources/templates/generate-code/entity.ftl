@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 * @Version: 1.0
 */
 @Data
-@TableName(value = "${classInfo.classInfo}")
+@TableName(value = "${classInfo.tableName}")
 @ApiModel(value = "${classInfo.className}对象", description = "${classInfo.classComment}")
 public class ${classInfo.className} implements Serializable {
 

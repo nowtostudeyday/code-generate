@@ -45,6 +45,4 @@ public interface GenerateStrategy {
      * 执行器执行
      */
     void execute();
-
-    void generateConfig();
 }
