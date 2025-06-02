@@ -8,7 +8,7 @@ database:
 
 # 需要生成的表名，默认为 * 代表所有表，多个表名以 , 分割
 # TODO 在 YML 中, * 是一个锚点引用符，所以需要用引号包裹表明此处是个普通字符串
-tableNames: "*"
+tableNames: sys_user
 
 # 作者
 author: zhanggongming
