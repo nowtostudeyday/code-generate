@@ -40,4 +40,9 @@ public class ConfigInfo {
      * 自定义目录前缀
      */
     private String prefix;
+
+    /**
+     * 是否只生成资源层
+     */
+    private Boolean onlyResource;
 }

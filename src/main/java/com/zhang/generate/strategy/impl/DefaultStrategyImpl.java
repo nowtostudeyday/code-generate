@@ -69,13 +69,20 @@ public class DefaultStrategyImpl implements GenerateStrategy, BaseGenCode {
 
         for (ClassInfo classInfo : classInfos) {
             // 生成代码
-            genController(classInfo);
-            genSceneService(classInfo);
-            genDomainService(classInfo);
-            genTransfer(classInfo);
-            genResourceService(classInfo);
-            genMapper(classInfo);
-            genEntity(classInfo);
+            if (!configInfo.getOnlyResource()) {
+                genController(classInfo);
+                genSceneService(classInfo);
+                genDomainService(classInfo);
+                genTransfer(classInfo);
+                genResourceService(classInfo);
+                genMapper(classInfo);
+                genEntity(classInfo);
+            } else {
+                genResourceService(classInfo);
+                genMapper(classInfo);
+                genEntity(classInfo);
+            }
+
         }
     }
 
