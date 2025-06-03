@@ -1,7 +1,6 @@
 package com.zhang.generate.strategy;
 
 import com.zhang.generate.config.GlobalConfig;
-import com.zhang.generate.strategy.impl.DefaultStrategyImpl;
 import freemarker.template.Configuration;
 
 /**
@@ -18,19 +17,6 @@ public interface GenerateStrategy {
      * @return
      */
     Integer getType();
-
-    /**
-     * 初始化
-     * <p>
-     * 默认实现为 {@link DefaultStrategyImpl}
-     * </p>
-     * 加载配置文件，数据库连接，数据表字段信息，Freemarker 模板
-     *
-     * @return
-     */
-    static GenerateStrategy init() {
-        return new DefaultStrategyImpl();
-    }
 
     /**
      * 获取配 FreeMarker 模板配置信息

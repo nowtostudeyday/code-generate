@@ -4,7 +4,7 @@ package ${packageName}.base.${classInfo.modelName}.mapper;
 package ${packageName}.base.${prefix}.${classInfo.modelName}.mapper;
 </#if>
 
-import ${packageName}.base.base.GwallBaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 <#if prefix == "*">
 import ${packageName}.base.${classInfo.modelName}.entity.${classInfo.className};
 <#else>
@@ -19,6 +19,6 @@ import org.apache.ibatis.annotations.Mapper;
 * @Version: 1.0
 */
 @Mapper
-public interface ${classInfo.className}Mapper extends GwallBaseMapper<${classInfo.className}> {
+public interface ${classInfo.className}Mapper extends BaseMapper<${classInfo.className}> {
 
 }

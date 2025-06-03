@@ -8,7 +8,7 @@ import com.zhang.generate.bean.ClassInfo;
  * @Date 2025/5/29 21:48
  * @Version 1.0
  */
-public interface BaseGenCode {
+public interface DDDBaseGenCode {
 
     /**
      * 生成固有的文件
