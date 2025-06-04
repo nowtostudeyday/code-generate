@@ -98,7 +98,7 @@ public class DataBaseUtil {
         return result;
     }
 
-    /***
+    /**
      * 数据指定数据库指定表的字段数据数据
      *
      * @param tableName tableName
@@ -112,12 +112,12 @@ public class DataBaseUtil {
                 tableName, dataBaseName);
     }
 
-    /***
+    /**
      * 获取所有Tables SQL
      */
     private static String getTables(String dataBaseName) {
         return String.format("SELECT table_name FROM information_schema.tables " +
-                        "WHERE table_schema = '%s' AND table_type = 'base table'",
+                        "WHERE table_schema = '%s' AND (table_type = 'base table' OR table_type = 'BASE TABLE')",
                 dataBaseName);
     }
 }
