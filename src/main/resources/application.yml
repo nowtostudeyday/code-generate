@@ -1,8 +1,8 @@
 # mysql 相关配置
 database:
     driver: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/cloud_user?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
-    username: root
+    url:
+    username:
     password:
 
 
@@ -10,17 +10,14 @@ database:
 # TODO 在 YML 中, * 是一个锚点引用符，所以需要用引号包裹表明此处是个普通字符串
 tableNames: "*"
 
-# 表名前缀, 默认为 "*" 不去除前缀
-tablePrefix: "*"
-
 # 作者
 author: zhanggongming
 
 # 自定义前缀   eg: 我想生成的文件在 com.zhang.system，此处就填写 system。默认为 *，代表直接生成在 packageName 目录下
-prefix: system
+prefix: "*"
 
 # 生成的代码 package 包名
 packageName: com.zhang
 
-# 是否只生成资源层  (DDD 架构专用属性)
+# 是否只生成资源层
 onlyResource: false
