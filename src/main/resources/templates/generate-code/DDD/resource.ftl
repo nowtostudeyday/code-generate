@@ -4,7 +4,6 @@ package ${packageName}.base.${classInfo.modelName}.repository;
 package ${packageName}.base.${prefix}.${classInfo.modelName}.repository;
 </#if>
 
-import ${packageName}.base.base.BaseDAO;
 <#if prefix == "*">
 import ${packageName}.base.${classInfo.modelName}.mapper.${classInfo.className}Mapper;
 <#else>
@@ -21,7 +20,7 @@ import javax.annotation.Resource;
 * @Version: 1.0
 */
 @Service
-public class ${classInfo.className}ResourceService extends BaseDAO {
+public class ${classInfo.className}ResourceService {
 
     @Resource
     private ${classInfo.className}Mapper ${classInfo.modelName}Mapper;

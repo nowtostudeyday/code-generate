@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.zhang.generate.factory.ClassInfoFactory.WILDCARD;
+
 /**
  * @Description 数据库解析工具类 -> 解析表和字段
  * @Author Mr.Zhang
@@ -31,7 +33,7 @@ public class DataBaseUtil {
      * @param tableName 表名
      * @param dataBaseName 数据库名
      */
-    public static ClassInfo parseClassInfo(String tableName, String dataBaseName) throws SQLException {
+    public static ClassInfo parseClassInfo(String tableName, String dataBaseName, String tablePrefix) throws SQLException {
         Statement statement = ConnectManager.getConnection().createStatement();
 
         // 获取表字段执行 SQL
@@ -40,6 +42,7 @@ public class DataBaseUtil {
 
         // 构建 ClassInfo 信息
         ClassInfo classInfo = new ClassInfo();
+        tableName = WILDCARD.equals(tablePrefix) ? tableName : tableName.split(tablePrefix)[1];
         classInfo.setTableName(tableName);
 
         // className 信息

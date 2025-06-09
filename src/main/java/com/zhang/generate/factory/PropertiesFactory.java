@@ -25,7 +25,7 @@ public class PropertiesFactory {
      */
     public static void loadProperties() throws IOException {
         // 1.加载 yml 文件
-        String filePath = System.getProperty("user.dir") + File.separator + "application.yml";
+        String filePath = System.getProperty("user.dir") + File.separator + "target/classes/application.yml";
 
         InputStream inputStream;
         if (new File(filePath).exists()) {

@@ -26,7 +26,7 @@ public class ClassInfoFactory {
     private static final List<ClassInfo> CLASS_INFO_LIST = new ArrayList<>();
 
     private static final String REGEX = "jdbc:mysql://[^/]+/([^?]+)";
-    private static final String WILDCARD = "*";
+    public static final String WILDCARD = "*";
     private static final String COMMA = ",";
 
     /**
@@ -53,12 +53,12 @@ public class ClassInfoFactory {
                                     log.error("tableName [{}] does not find in the database", table);
                                     throw new BizException(200, "配置文件中配置的 [" + table + "] 在数据库中未找到");
                                 }
-                                ClassInfo classInfo = DataBaseUtil.parseClassInfo(table, dataBaseName);
+                                ClassInfo classInfo = DataBaseUtil.parseClassInfo(table, dataBaseName, configInfo.getTablePrefix());
                                 CLASS_INFO_LIST.add(classInfo);
                             }
                         } else {
                             for (String table : tableNames) {
-                                ClassInfo classInfo = DataBaseUtil.parseClassInfo(table, dataBaseName);
+                                ClassInfo classInfo = DataBaseUtil.parseClassInfo(table, dataBaseName, configInfo.getTablePrefix());
                                 CLASS_INFO_LIST.add(classInfo);
                             }
                         }

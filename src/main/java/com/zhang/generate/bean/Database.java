@@ -1,7 +1,6 @@
 package com.zhang.generate.bean;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * @Description 数据库信息
@@ -10,7 +9,6 @@ import lombok.experimental.Accessors;
  * @Version 1.0
  */
 @Data
-@Accessors(chain = true)
 public class Database {
     /**
      * 连接地址

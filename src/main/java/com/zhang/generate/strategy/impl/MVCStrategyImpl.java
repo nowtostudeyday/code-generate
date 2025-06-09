@@ -6,8 +6,8 @@ import com.zhang.generate.config.GlobalConfig;
 import com.zhang.generate.constant.PathConstant;
 import com.zhang.generate.enums.StrategyTypeEnum;
 import com.zhang.generate.factory.ClassInfoFactory;
-import com.zhang.generate.strategy.DDDBaseGenCode;
 import com.zhang.generate.strategy.GenerateStrategy;
+import com.zhang.generate.strategy.MVCBaseCenCode;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -23,14 +23,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description 默认 DDD 领域驱动架构生成引擎实现类
+ * @Description MVC 架构生成引擎实现类
  * @Author Mr.Zhang
- * @Date 2025/5/28 8:47
+ * @Date 2025/6/8 12:25
  * @Version 1.0
  */
 @Slf4j
 @Data
-public class DefaultStrategyImpl implements GenerateStrategy, DDDBaseGenCode {
+public class MVCStrategyImpl implements GenerateStrategy, MVCBaseCenCode {
 
     /**
      * 配置文件信息
@@ -42,88 +42,59 @@ public class DefaultStrategyImpl implements GenerateStrategy, DDDBaseGenCode {
      */
     private Configuration configuration;
 
-    /**
-     * 构造方法内部初始化配置信息
-     */
-    public DefaultStrategyImpl() {
-        configInfo = GlobalConfig.getConfigInfo();
-        configuration = GenerateStrategy.getConfiguration();
+    public MVCStrategyImpl() {
+        this.configuration = GenerateStrategy.getConfiguration();
+        this.configInfo = GlobalConfig.getConfigInfo();
     }
 
     /**
-     * 获取策略类型
+     * 获取生成模板类型
      *
      * @return
      */
     @Override
     public Integer getType() {
-        return StrategyTypeEnum.DDD.getType();
+        return StrategyTypeEnum.MVC.getType();
     }
 
-    /**
-     * 生成代码
-     */
     @Override
     public void execute() {
         List<ClassInfo> classInfos = ClassInfoFactory.getClassInfoList();
 
         for (ClassInfo classInfo : classInfos) {
             // 生成代码
-            if (!configInfo.getOnlyResource()) {
-                genController(classInfo);
-                genSceneService(classInfo);
-                genDomainService(classInfo);
-                genTransfer(classInfo);
-                genResourceService(classInfo);
-                genMapper(classInfo);
-                genEntity(classInfo);
-            } else {
-                genResourceService(classInfo);
-                genMapper(classInfo);
-                genEntity(classInfo);
-            }
-
+            genController(classInfo);
+            genService(classInfo);
+            genServiceImpl(classInfo);
+            genMapper(classInfo);
+            genEntity(classInfo);
         }
     }
 
     @Override
-    public void genFix() {}
-
-    @Override
     public void genController(ClassInfo classInfo) {
-        this.genCode(classInfo, "generate-code/DDD/controller.ftl", "web", null, "Controller.java");
+        this.genCode(classInfo, "generate-code/MVC/controller.ftl", "controller", "Controller.java");
     }
 
     @Override
-    public void genSceneService(ClassInfo classInfo) {
-        this.genCode(classInfo, "generate-code/DDD/scene.ftl", "core", "scene", "SceneService.java");
-        this.genCode(classInfo, "generate-code/DDD/sceneImpl.ftl", "core", "scene", "SceneServiceImpl.java");
+    public void genService(ClassInfo classInfo) {
+        this.genCode(classInfo, "generate-code/MVC/service.ftl","service", "Service.java");
     }
 
     @Override
-    public void genDomainService(ClassInfo classInfo) {
-        this.genCode(classInfo, "generate-code/DDD/domain.ftl", "core", "domain", "DomainService.java");
-        this.genCode(classInfo, "generate-code/DDD/domainImpl.ftl", "core", "domain", "DomainServiceImpl.java");
+    public void genServiceImpl(ClassInfo classInfo) {
+        this.genCode(classInfo, "generate-code/MVC/serviceImpl.ftl", "service", "ServiceImpl.java");
     }
 
-    @Override
-    public void genTransfer(ClassInfo classInfo) {
-        this.genCode(classInfo, "generate-code/DDD/transfer.ftl", "core", "transfer", "Transfer.java");
-    }
-
-    @Override
-    public void genResourceService(ClassInfo classInfo) {
-        this.genCode(classInfo, "generate-code/DDD/resource.ftl", "base", "repository", "ResourceService.java");
-    }
 
     @Override
     public void genEntity(ClassInfo classInfo) {
-        this.genCode(classInfo, "generate-code/DDD/entity.ftl", "base", "entity", ".java");
+        this.genCode(classInfo, "generate-code/MVC/entity.ftl", "entity", ".java");
     }
 
     @Override
     public void genMapper(ClassInfo classInfo) {
-        this.genCode(classInfo, "generate-code/DDD/mapper.ftl", "base", "mapper", "Mapper.java");
+        this.genCode(classInfo, "generate-code/MVC/mapper.ftl", "mapper", "Mapper.java");
     }
 
     // TODO 暂时不实现
@@ -137,18 +108,16 @@ public class DefaultStrategyImpl implements GenerateStrategy, DDDBaseGenCode {
      *
      * @param classInfo     类信息
      * @param templatePath  模板地址
-     * @param moduleName    模块名
      * @param parentPackage 父包名
      * @param classSuffix   文件后缀
      */
-    private void genCode(ClassInfo classInfo, String templatePath, String moduleName, String parentPackage, String classSuffix) {
+    private void genCode(ClassInfo classInfo, String templatePath,  String parentPackage, String classSuffix) {
         // 1.转换格式
         String urlPath = configInfo.getPackageName().replace(".", File.separator);
 
         // 2.生成文件路径
-        // D:\download\project\tools\code-generate  \src\main\java  \com\zhang  \base (\basic)\addressController\AddressController.java
+        // D:\download\project\tools\code-generate  \src\main\java  \com\zhang  (\basic)\addressController\AddressController.java
         String filePath = configInfo.getProjectPath() + PathConstant.SRC_MAIN_JAVA + urlPath + File.separator
-                + moduleName.replace(".", File.separator) + File.separator
                 + (configInfo.getPrefix().equalsIgnoreCase("*") ? classInfo.getModelName() + (parentPackage != null ? File.separator + parentPackage : "") + File.separator + classInfo.getClassName() + classSuffix :
                 configInfo.getPrefix() + File.separator + classInfo.getModelName() + (parentPackage != null ? File.separator + parentPackage : "") + File.separator + classInfo.getClassName() + classSuffix);
         log.info("controller filePath : [{}]", filePath);

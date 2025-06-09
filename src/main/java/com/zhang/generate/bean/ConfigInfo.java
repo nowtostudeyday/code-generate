@@ -1,7 +1,6 @@
 package com.zhang.generate.bean;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * @Description 配置信息
@@ -10,7 +9,6 @@ import lombok.experimental.Accessors;
  * @Version 1.0
  */
 @Data
-@Accessors(chain = true)
 public class ConfigInfo {
 
     /**
@@ -47,4 +45,9 @@ public class ConfigInfo {
      * 是否只生成资源层
      */
     private Boolean onlyResource;
+
+    /**
+     * 表前缀
+     */
+    private String tablePrefix;
 }

@@ -2,6 +2,8 @@ package com.zhang.generate.factory;
 
 import com.zhang.generate.exception.BizException;
 import com.zhang.generate.strategy.GenerateStrategy;
+import com.zhang.generate.strategy.impl.DefaultStrategyImpl;
+import com.zhang.generate.strategy.impl.MVCStrategyImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +20,8 @@ public class GenerateStrategyFactory {
 
     static {
         // TODO 后续支持动态扩展
-        registerStrategy(GenerateStrategy.init());
+        registerStrategy(new DefaultStrategyImpl());
+        registerStrategy(new MVCStrategyImpl());
     }
 
     private static void registerStrategy(GenerateStrategy strategy) {
