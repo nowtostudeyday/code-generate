@@ -3,7 +3,7 @@ database:
     driver: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/cloud_user?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: 1234
+    password:
 
 
 # 需要生成的表名，默认为 * 代表所有表，多个表名以 , 分割
