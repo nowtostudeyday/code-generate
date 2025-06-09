@@ -23,5 +23,4 @@ public class ${classInfo.className}Controller {
     @Autowired
     private ${classInfo.className}Service ${classInfo.modelName}Service;
 
-
 }

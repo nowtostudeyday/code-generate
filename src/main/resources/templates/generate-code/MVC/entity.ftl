@@ -36,4 +36,5 @@ public class ${classInfo.className} implements Serializable {
     @ApiModelProperty("自增主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
+
 }
