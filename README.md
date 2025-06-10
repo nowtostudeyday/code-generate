@@ -5,6 +5,7 @@
 `code-generate` 是一个基于 Java 的代码生成工具，主要用于自动化生成数据库表对应的实体类、Mapper、Service 等基础代码，提升开发效率。该项目结合了 FreeMarker 模板引擎和 YAML 配置文件，支持灵活的模板配置与字段映射规则。
 <p/>
 备注：建议各位配合这篇博客来了解本代码生成框架：https://blog.csdn.net/weixin_63944437/article/details/148544114?spm=1011.2415.3001.5331
+
 ---
 
 ## 🛠️ 技术栈
