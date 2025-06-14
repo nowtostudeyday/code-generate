@@ -50,4 +50,9 @@ public class ConfigInfo {
      * 表前缀
      */
     private String tablePrefix;
+
+    /**
+     * MVC 模式选择： 聚合模式/分离模式
+     */
+    private Boolean mvcMode;
 }

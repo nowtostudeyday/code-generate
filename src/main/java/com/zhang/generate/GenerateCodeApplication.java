@@ -14,7 +14,6 @@ public class GenerateCodeApplication {
     public static void main(String[] args) {
         // 方式一：启用配置文件
         GenerateStrategy strategy = GenerateStrategyFactory.getStrategy(StrategyTypeEnum.MVC.getType());
-
         strategy.execute();
     }
 }
