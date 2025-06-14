@@ -89,6 +89,9 @@ packageName: com.zhang
 
 # 是否只生成资源层 (DDD 架构专用属性)
 onlyResource: false
+
+# MVC 生成模式（true：聚合模式 | false：分离模式）  -> 所谓聚合模式，就是多个 Controller 在同一个 Controller 文件夹下
+mvcMode: false
 ```
 
 
