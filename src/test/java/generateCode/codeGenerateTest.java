@@ -33,6 +33,7 @@ public class codeGenerateTest {
         configInfo.setPackageName("com.zhang");  //  生成代码 package 包名
         configInfo.setOnlyResource(false);  // 是否只生成资源层
         configInfo.setProjectPath(projectPath);
+        configInfo.setMvcMode(false);  // MVC 模式（true：聚合模式 | false：分离模式）
 
         GlobalConfig.setConfigInfo(configInfo);
 

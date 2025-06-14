@@ -68,39 +68,63 @@ public class MVCStrategyImpl implements GenerateStrategy, MVCBaseCenCode {
             genServiceImpl(classInfo);
             genMapper(classInfo);
             genEntity(classInfo);
+            genMapperXml(classInfo);
         }
     }
 
     @Override
     public void genController(ClassInfo classInfo) {
-        this.genCode(classInfo, "generate-code/MVC/controller.ftl", "controller", "Controller.java");
+        if (configInfo.getMvcMode()) {
+            this.genCode(classInfo, "generate-code/MVC_2/controller.ftl", "controller", "Controller.java");
+        } else {
+            this.genCode(classInfo, "generate-code/MVC/controller.ftl", "controller", "Controller.java");
+        }
     }
 
     @Override
     public void genService(ClassInfo classInfo) {
-        this.genCode(classInfo, "generate-code/MVC/service.ftl","service", "Service.java");
+        if (configInfo.getMvcMode()) {
+            this.genCode(classInfo, "generate-code/MVC_2/service.ftl", "service", "Service.java");
+        } else {
+            this.genCode(classInfo, "generate-code/MVC/service.ftl","service", "Service.java");
+        }
     }
 
     @Override
     public void genServiceImpl(ClassInfo classInfo) {
-        this.genCode(classInfo, "generate-code/MVC/serviceImpl.ftl", "service", "ServiceImpl.java");
+        if (configInfo.getMvcMode()) {
+            this.genCode(classInfo, "generate-code/MVC_2/serviceImpl.ftl", "service\\impl", "ServiceImpl.java");
+        } else {
+            this.genCode(classInfo, "generate-code/MVC/serviceImpl.ftl", "service\\impl", "ServiceImpl.java");
+        }
     }
 
 
     @Override
     public void genEntity(ClassInfo classInfo) {
-        this.genCode(classInfo, "generate-code/MVC/entity.ftl", "entity", ".java");
+        if (configInfo.getMvcMode()) {
+            this.genCode(classInfo, "generate-code/MVC_2/entity.ftl", "entity", ".java");
+        } else {
+            this.genCode(classInfo, "generate-code/MVC/entity.ftl", "entity", ".java");
+        }
     }
 
     @Override
     public void genMapper(ClassInfo classInfo) {
-        this.genCode(classInfo, "generate-code/MVC/mapper.ftl", "mapper", "Mapper.java");
+        if (configInfo.getMvcMode()) {
+            this.genCode(classInfo, "generate-code/MVC_2/mapper.ftl", "mapper", "Mapper.java");
+        } else {
+            this.genCode(classInfo, "generate-code/MVC/mapper.ftl", "mapper", "Mapper.java");
+        }
     }
 
-    // TODO 暂时不实现
     @Override
     public void genMapperXml(ClassInfo classInfo) {
-
+        if (configInfo.getMvcMode()) {
+            this.genCode(classInfo, "generate-code/MVC_2/mapperXml.ftl", "mapper", "Mapper.xml");
+        } else {
+            this.genCode(classInfo, "generate-code/MVC/mapperXml.ftl", "mapper", "Mapper.xml");
+        }
     }
 
     /**
@@ -117,9 +141,17 @@ public class MVCStrategyImpl implements GenerateStrategy, MVCBaseCenCode {
 
         // 2.生成文件路径
         // D:\download\project\tools\code-generate  \src\main\java  \com\zhang  (\basic)\addressController\AddressController.java
-        String filePath = configInfo.getProjectPath() + PathConstant.SRC_MAIN_JAVA + urlPath + File.separator
-                + (configInfo.getPrefix().equalsIgnoreCase("*") ? classInfo.getModelName() + (parentPackage != null ? File.separator + parentPackage : "") + File.separator + classInfo.getClassName() + classSuffix :
-                configInfo.getPrefix() + File.separator + classInfo.getModelName() + (parentPackage != null ? File.separator + parentPackage : "") + File.separator + classInfo.getClassName() + classSuffix);
+        String filePath;
+        if (!configInfo.getMvcMode()) {
+            filePath = configInfo.getProjectPath() + PathConstant.SRC_MAIN_JAVA + urlPath + File.separator
+                    + (configInfo.getPrefix().equalsIgnoreCase("*") ? classInfo.getModelName() + (parentPackage != null ? File.separator + parentPackage : "") + File.separator + classInfo.getClassName() + classSuffix :
+                    configInfo.getPrefix() + File.separator + classInfo.getModelName() + (parentPackage != null ? File.separator + parentPackage : "") + File.separator + classInfo.getClassName() + classSuffix);
+        } else {
+            filePath = configInfo.getProjectPath() + PathConstant.SRC_MAIN_JAVA + urlPath + File.separator
+                    + (configInfo.getPrefix().equalsIgnoreCase("*") ? (parentPackage != null ? parentPackage : "") + File.separator + classInfo.getClassName() + classSuffix :
+                    configInfo.getPrefix() + (parentPackage != null ? File.separator + parentPackage : "") + File.separator + classInfo.getClassName() + classSuffix);
+        }
+
         log.info("controller filePath : [{}]", filePath);
 
         // 3.生成
