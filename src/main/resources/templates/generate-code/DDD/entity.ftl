@@ -31,9 +31,15 @@ import java.time.LocalDateTime;
 public class ${classInfo.className} implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>
+        <#list classInfo.fieldList as fieldItem >
 
-    @ApiModelProperty("自增主键")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    /**
+    * ${fieldItem.fieldComment}
+    */
+    @ApiModelProperty("${fieldItem.fieldComment}")
+    private ${fieldItem.fieldClass} ${fieldItem.fieldName};
+        </#list>
+    </#if>
 
 }
