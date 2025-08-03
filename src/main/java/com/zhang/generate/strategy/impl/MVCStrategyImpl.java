@@ -86,7 +86,7 @@ public class MVCStrategyImpl implements GenerateStrategy, MVCBaseCenCode {
         if (configInfo.getMvcMode()) {
             this.genCode(classInfo, "generate-code/MVC_2/service.ftl", "service", "Service.java");
         } else {
-            this.genCode(classInfo, "generate-code/MVC/service.ftl","service", "Service.java");
+            this.genCode(classInfo, "generate-code/MVC/service.ftl", "service", "Service.java");
         }
     }
 
@@ -120,11 +120,7 @@ public class MVCStrategyImpl implements GenerateStrategy, MVCBaseCenCode {
 
     @Override
     public void genMapperXml(ClassInfo classInfo) {
-        if (configInfo.getMvcMode()) {
-            this.genCode(classInfo, "generate-code/MVC_2/mapperXml.ftl", "mapper", "Mapper.xml");
-        } else {
-            this.genCode(classInfo, "generate-code/MVC/mapperXml.ftl", "mapper", "Mapper.xml");
-        }
+        this.genXml(classInfo, "generate-code/MVC_2/mapperXml.ftl", "mapper", "Mapper.xml");
     }
 
     /**
@@ -135,7 +131,7 @@ public class MVCStrategyImpl implements GenerateStrategy, MVCBaseCenCode {
      * @param parentPackage 父包名
      * @param classSuffix   文件后缀
      */
-    private void genCode(ClassInfo classInfo, String templatePath,  String parentPackage, String classSuffix) {
+    private void genCode(ClassInfo classInfo, String templatePath, String parentPackage, String classSuffix) {
         // 1.转换格式
         String urlPath = configInfo.getPackageName().replace(".", File.separator);
 
@@ -152,9 +148,15 @@ public class MVCStrategyImpl implements GenerateStrategy, MVCBaseCenCode {
                     configInfo.getPrefix() + (parentPackage != null ? File.separator + parentPackage : "") + File.separator + classInfo.getClassName() + classSuffix);
         }
 
-        log.info("controller filePath : [{}]", filePath);
+        log.info("javaFile filePath : [{}]", filePath);
 
         // 3.生成
+        this.process(classInfo, templatePath, filePath);
+    }
+
+    private void genXml(ClassInfo classInfo, String templatePath, String parentPackage, String classSuffix) {
+        String filePath = configInfo.getProjectPath() + PathConstant.SRC_MAIN_RESOURCE + (parentPackage != null ? parentPackage : "") + File.separator + classInfo.getClassName() + classSuffix;
+        log.info("xml filePath : [{}]", filePath);
         this.process(classInfo, templatePath, filePath);
     }
 

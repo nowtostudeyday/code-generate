@@ -7,8 +7,8 @@ package ${packageName}.${prefix}.controller;
 
 import ${packageName}.${prefix}.service.${classInfo.className}Service;
 </#if>
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
 * @Author: ${author}
@@ -16,7 +16,7 @@ import java.util.List;
 * @Description: ${classInfo.classComment?replace('表$', '')}控制层
 * @Version: 1.0
 */
-@Controller
+@RestController
 @RequestMapping(value = "/api/v1/${classInfo.modelName}")
 public class ${classInfo.className}Controller {
 

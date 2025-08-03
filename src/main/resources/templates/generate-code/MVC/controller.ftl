@@ -7,8 +7,8 @@ package ${packageName}.${prefix}.${classInfo.modelName}.controller;
 
 import ${packageName}.${prefix}.${classInfo.modelName}.service.${classInfo.className}Service;
 </#if>
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
 * @Author: ${author}

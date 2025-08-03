@@ -37,7 +37,7 @@ public class codeGenerateTest {
 
         GlobalConfig.setConfigInfo(configInfo);
 
-        GenerateStrategy strategy = GenerateStrategyFactory.getStrategy(StrategyTypeEnum.DDD.getType());
+        GenerateStrategy strategy = GenerateStrategyFactory.getStrategy(StrategyTypeEnum.MVC.getType());
         strategy.execute();
     }
 }

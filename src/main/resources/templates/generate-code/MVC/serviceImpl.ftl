@@ -13,6 +13,7 @@ import ${packageName}.${prefix}.${classInfo.modelName}.service.${classInfo.class
 </#if>
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 /**
 * @Author: ${author}

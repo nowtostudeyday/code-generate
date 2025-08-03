@@ -21,7 +21,6 @@ import java.io.Serializable;
 * @Version: 1.0
 */
 @Data
-
 <#if tablePrefix == "*">
 @TableName(value = "${classInfo.tableName}")
 <#else>
